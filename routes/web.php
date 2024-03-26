@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/database', [ApotekController::class, 'index'])->name('apotek.index');
+    Route::get('/database', [ApotekController::class, 'read'])->name('apotek.read');
     Route::post('/dashboard', [ApotekController::class, 'store'])->name('apotek.store');
 });
 

@@ -1,40 +1,16 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link } from "@inertiajs/react";
-import DataTable from "react-data-table-component";
-import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import { Head, useForm, Link, usePage } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 
-// const columns = [
-//     {
-//         name: "Title",
-//         selector: (row) => row.title,
-//     },
-//     {
-//         name: "Year",
-//         selector: (row) => row.year,
-//     },
-// ];
+export default function Dashboard({ auth, apoteks }) {
+    console.log(apoteks);
 
-// const data = [
-//     {
-//         id: 1,
-//         title: "Beetlejuice",
-//         year: "1988",
-//     },
-//     {
-//         id: 2,
-//         title: "Ghostbusters",
-//         year: "1984",
-//     },
-// ];
+    const {flash} = usePage().props;
 
-export default function Dashboard({ auth }) {
-    const { data, setData, post, processing, errors} = useForm({
-        id_obat: 'idObat',
+    const { data, setData, post, processing, errors, reset, onSuccess} = useForm({
         nama_obat: "",
         jenis_obat: "",
         stok_obat: "",
@@ -43,9 +19,10 @@ export default function Dashboard({ auth }) {
 
     const storeObat = (e) => {
         e.preventDefault();
+        post(route('dashboard')), data,{
+            onSuccess: reset(),
 
-        post(route("dashboard"));
-        setIdObat(idObat + 1);
+        };
     };
     return (
         <AuthenticatedLayout
@@ -58,10 +35,17 @@ export default function Dashboard({ auth }) {
         >
             <Head title="Dashboard" />
             <div className="container mx-auto px-40 py-6 justify-between items-center">
+                {flash.message && (
+                <div className="py-2 px-4 rounded-md bg-green-300 text-center">
+                    {flash.message}
+                </div>
+                )}
+                <br />
                 <form onSubmit={storeObat}>
                     <div>
-                        <InputLabel htmlFor="nama_obat" value="Nama_obat" />
-
+                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Obat</h2>
+                        <br />
+                            <InputLabel htmlFor="nama_obat" value="Nama_obat" />
                         <TextInput
                             id="nama_obat"
                             name="nama_obat"
@@ -80,7 +64,7 @@ export default function Dashboard({ auth }) {
                         <TextInput
                             id="jenis_obat"
                             name="jenis_obat"
-                            value={data.email}
+                            value={data.jenis_obat}
                             className="mt-1 block w-full"
                             onChange={(e) => setData("jenis_obat", e.target.value)}
                             required
@@ -137,15 +121,12 @@ export default function Dashboard({ auth }) {
 
                     <div className="flex items-center justify-end mt-4">
 
-                        <PrimaryButton className="ms-4" disabled={processing}>
-                            Tambah
+                        <PrimaryButton className="ms-4 bg-green-500" disabled={processing}>
+                            Add
                         </PrimaryButton>
                     </div>
                 </form>
             </div>
-            {/* <div className="py-12">
-                <DataTable columns={columns} data={data} />
-            </div> */}
         </AuthenticatedLayout>
     );
 }
