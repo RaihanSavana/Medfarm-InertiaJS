@@ -23,9 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/database', [ApotekController::class, 'index'])->name('apotek.index');
-    Route::get('/database', [ApotekController::class, 'read'])->name('apotek.read');
+    Route::get('/database', [ApotekController::class, 'database'])->name('apotek.database');
     Route::post('/dashboard', [ApotekController::class, 'store'])->name('apotek.store');
+
+    Route::get('/database/edit/{apoteks}', [ApotekController::class, 'edit'])->name('apotek.edit');
+    Route::patch('/database/edit/{apoteks}', [ApotekController::class, 'update'])->name('apotek.update');
+    // Route::post('/dashboard', [ApotekController::class, 'store'])->name('apotek.store');
 });
 
 require __DIR__.'/auth.php';

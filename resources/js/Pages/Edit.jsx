@@ -1,38 +1,41 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link, usePage } from "@inertiajs/react";
+import { Head, useForm, Link, usePage, router } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 
-export default function Dashboard({ auth }) {
-
+export default function Edit({ auth, apoteks }) {
     const {flash} = usePage().props;
 
     const { data, setData, post, processing, errors, reset, onSuccess} = useForm({
-        nama_obat: "",
-        jenis_obat: "",
-        stok_obat: "",
-        harga: "",
+        nama_obat: apoteks.nama_obat,
+        jenis_obat: apoteks.jenis_obat,
+        stok_obat: apoteks.stok_obat,
+        harga: apoteks.harga,
     });
 
-    const storeObat = (e) => {
+    const handleUpdate = (e) => {
         e.preventDefault();
-        post(route('dashboard')), data,{
-            onSuccess: reset(),
+        router.post(`/database/edit/${apoteks.id}`, {
+            _method: "patch",
+            nama_obat: data.nama_obat,
+            jenis_obat: data.jenis_obat,
+            stok_obat: data.stok_obat,
+            harga: data.harga
+        })
 
-        };
     };
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
+                    Edit : {apoteks.nama_obat}
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Edit" />
             <div className="container mx-auto px-40 py-6 justify-between items-center">
                 {flash.message && (
                 <div className="py-2 px-4 rounded-md bg-green-300 text-center">
@@ -40,9 +43,9 @@ export default function Dashboard({ auth }) {
                 </div>
                 )}
                 <br />
-                <form onSubmit={storeObat}>
+                <form onSubmit={handleUpdate}>
                     <div>
-                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tambah Obat</h2>
+                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Obat {}</h2>
                         <br />
                             <InputLabel htmlFor="nama_obat" value="Nama_obat" />
                         <TextInput
@@ -121,7 +124,7 @@ export default function Dashboard({ auth }) {
                     <div className="flex items-center justify-end mt-4">
 
                         <PrimaryButton className="ms-4 bg-green-500" disabled={processing}>
-                            Add
+                            Update
                         </PrimaryButton>
                     </div>
                 </form>
