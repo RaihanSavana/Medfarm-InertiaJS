@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apoteks;
-
+use App\Models\JenisObat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
@@ -14,7 +14,7 @@ class ApotekController extends Controller
     public function update(Request $request, Apoteks $apoteks){
         $data = $request->validate([
             'nama_obat' => 'required',
-            'jenis_obat' => 'required',
+            'jenis_obat_id' => 'required',
             'stok_obat' => 'required',
             'harga' => 'required'
         ]);
@@ -24,16 +24,20 @@ class ApotekController extends Controller
     }
 
     public function edit(Apoteks $apoteks){
-        return Inertia::render(
-            'EditObat',['apoteks' => $apoteks
-            ]);
+
+        $jenis_obat = JenisObat::all();
+
+        return Inertia::render('EditObat', [
+            'apoteks' => $apoteks,
+            'jenis_obat' => $jenis_obat // Use 'jenis_obat' instead of 'jenis_obats'
+        ]);
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'nama_obat' => 'required',
-            'jenis_obat' => 'required',
+            'jenis_obat_id' => 'required',
             'stok_obat' => 'required',
             'harga' => 'required'
         ]);

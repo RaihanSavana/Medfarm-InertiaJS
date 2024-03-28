@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('apoteks', function (Blueprint $table) {
             $table->id()->primary();
             $table->string('nama_obat');
-            $table->string('jenis_obat');
+            $table->unsignedBigInteger('jenis_obat_id');
             $table->integer('stok_obat');
             $table->integer('harga');
             $table->timestamps();
+
+            $table->foreign('jenis_obat_id')->references('id')->on('jenis_obats');
         });
     }
 

@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pemasok extends Model
+class JenisObat extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'nama_pemasok',
+        'jenis_obat',
     ];
+
+    public function apoteks()
+    {
+        return $this->hasMany(Apoteks::class);
+    }
 }

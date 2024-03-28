@@ -44,6 +44,18 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Pemasok
                                 </NavLink>
+                                <NavLink
+                                    href={route("jenisObat")}
+                                    active={route().current("jenisObat")}
+                                >
+                                    Jenis Obat
+                                </NavLink>
+                                <NavLink
+                                    href={route("tmasuk")}
+                                    active={route().current("tmasuk")}
+                                >
+                                    Transaksi Masuk
+                                </NavLink>
                             </div>
                         </div>
 

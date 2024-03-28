@@ -5,11 +5,14 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 
-export default function Edit({ auth, apoteks }) {
+export default function Edit({ auth, apoteks,  jenis_obat  }) {
+
+    console.log(jenis_obat);
+    console.log(apoteks);
 
     const { data, setData, post, processing, errors, reset, onSuccess} = useForm({
         nama_obat: apoteks.nama_obat,
-        jenis_obat: apoteks.jenis_obat,
+        jenis_obat_id: apoteks.jenis_obat_id,
         stok_obat: apoteks.stok_obat,
         harga: apoteks.harga,
     });
@@ -19,7 +22,7 @@ export default function Edit({ auth, apoteks }) {
         router.post(`/database/edit/${apoteks.id}`, {
             _method: "patch",
             nama_obat: data.nama_obat,
-            jenis_obat: data.jenis_obat,
+            jenis_obat_id: data.jenis_obat_id,
             stok_obat: data.stok_obat,
             harga: data.harga
         })
@@ -55,18 +58,33 @@ export default function Edit({ auth, apoteks }) {
                     </div>
 
                     <div className="mt-4">
-                        <InputLabel htmlFor="jenis_obat" value="Jenis_obat" />
+                        <InputLabel htmlFor="jenis_obat" value="Jenis Obat" />
 
-                        <TextInput
+                        <select
                             id="jenis_obat"
                             name="jenis_obat"
-                            value={data.jenis_obat}
+                            value={data.jenis_obat_id}
+                            onChange={
+                                (e) => setData("jenis_obat_id", e.target.value) // Memperbarui data.jenis_obat_id saat opsi dipilih
+                            }
                             className="mt-1 block w-full"
-                            onChange={(e) => setData("jenis_obat", e.target.value)}
                             required
-                        />
+                        >
+                            <option value="">Pilih Jenis Obat</option>
+                            {jenis_obat.map((jenisObat) => (
+                                <option
+                                    key={jenisObat.id}
+                                    value={jenisObat.id} // Menggunakan id sebagai value untuk opsi
+                                >
+                                    {jenisObat.jenis_obat}
+                                </option>
+                            ))}
+                        </select>
 
-                        <InputError message={errors.jenis_obat} className="mt-2" />
+                        <InputError
+                            message={errors.jenis_obat_id}
+                            className="mt-2"
+                        />
                     </div>
 
                     <div className="mt-4">

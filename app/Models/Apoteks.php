@@ -11,8 +11,13 @@ class Apoteks extends Model
 
     protected $fillable = [
         'nama_obat',
-        'jenis_obat',
+        'jenis_obat_id',
         'stok_obat',
         'harga',
     ];
+
+    public function jenisobats()
+    {
+        return $this->belongsTo(JenisObat::class);
+    }
 }

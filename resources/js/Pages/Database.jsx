@@ -4,9 +4,12 @@ import { useState } from "react";
 import DataTable from "react-data-table-component";
 import toast from "react-hot-toast";
 
-export default function Database({ auth, apoteks }) {
+export default function Database({ auth, apoteks, jenis_obats }) {
     const handleShowConfirmation = () => {};
-    
+
+    console.log(apoteks);
+    console.log(jenis_obats);
+
     const { flash } = usePage().props;
 
     const columns = [
@@ -35,11 +38,20 @@ export default function Database({ auth, apoteks }) {
         },
     ];
 
+    // Misalkan Anda memiliki array jenisObat seperti ini
+    const jenisObat = jenis_obats.map((jenisObat) => ({
+        id: jenisObat.id,
+        nama: jenisObat.jenis_obat
+    }));
 
     const data = apoteks.map((obat) => ({
         id: obat.id,
         nama_obat: obat.nama_obat,
-        jenis_obat: obat.jenis_obat,
+        jenis_obat_id: obat.jenis_obat_id,
+        // Cari jenis obat berdasarkan ID
+        jenis_obat:
+            jenisObat.find((jenis) => jenis.id === obat.jenis_obat_id)?.nama ||
+            "Tidak Diketahui",
         harga: obat.harga,
         action: (
             <div className="flex items-center justify-center gap-2">
@@ -47,11 +59,11 @@ export default function Database({ auth, apoteks }) {
                 <div
                     className="cursor-pointer"
                     onClick={handleShowConfirmation}
-                    >
-                </div>
+                ></div>
             </div>
         ),
     }));
+
     const [records, setRecords] = useState(data);
 
     function handleFilter(event) {
@@ -74,8 +86,6 @@ export default function Database({ auth, apoteks }) {
                 duration: 4000,
             });
     }
-
-    console.log(apoteks);
 
     return (
         <AuthenticatedLayout
@@ -100,7 +110,6 @@ export default function Database({ auth, apoteks }) {
                 <br />
 
                 <div className="overflow-x-auto">
-
                     <DataTable
                         columns={columns}
                         data={records}
@@ -110,7 +119,6 @@ export default function Database({ auth, apoteks }) {
                         responsive
                         fixedHeader
                     />
-
                 </div>
             </div>
         </AuthenticatedLayout>
