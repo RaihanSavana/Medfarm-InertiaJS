@@ -1,9 +1,82 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
+import { useState } from "react";
+import DataTable from "react-data-table-component";
+import toast from "react-hot-toast";
 
 export default function Database({ auth, apoteks }) {
-    const {flash} = usePage().props;
+    const handleShowConfirmation = () => {};
+    
+    const { flash } = usePage().props;
+
+    const columns = [
+        {
+            name: "ID",
+            selector: (row) => row.id,
+            sortable: true,
+        },
+        {
+            name: "Nama Obat",
+            selector: (row) => row.nama_obat,
+            sortable: true,
+        },
+        {
+            name: "Jenis Obat",
+            selector: (row) => row.jenis_obat,
+            sortable: true,
+        },
+        {
+            name: "Harga",
+            selector: (row) => row.harga,
+        },
+        {
+            name: "Action",
+            selector: (row) => row.action,
+        },
+    ];
+
+
+    const data = apoteks.map((obat) => ({
+        id: obat.id,
+        nama_obat: obat.nama_obat,
+        jenis_obat: obat.jenis_obat,
+        harga: obat.harga,
+        action: (
+            <div className="flex items-center justify-center gap-2">
+                <Link href={`database/edit/${obat.id}`}>Edit</Link>
+                <div
+                    className="cursor-pointer"
+                    onClick={handleShowConfirmation}
+                    >
+                </div>
+            </div>
+        ),
+    }));
+    const [records, setRecords] = useState(data);
+
+    function handleFilter(event) {
+        const newData = data.filter((row) => {
+            return (
+                row.nama_obat
+                    .toLowerCase()
+                    .includes(event.target.value.toLowerCase()) ||
+                row.jenis_obat
+                    .toLowerCase()
+                    .includes(event.target.value.toLowerCase())
+            );
+        });
+        setRecords(newData);
+    }
+
+    {
+        flash.message &&
+            toast.success(flash.message, {
+                duration: 4000,
+            });
+    }
+
     console.log(apoteks);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -14,43 +87,30 @@ export default function Database({ auth, apoteks }) {
             }
         >
             <Head title="Database" />
-            <div className="container mx-auto px-4 py-6">
-            {flash.message && (
-                <div className="py-2 px-4 rounded-md bg-green-300 text-center">
-                    {flash.message}
-                </div>
-                )}
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white shadow-md rounded-lg">
-                        <thead className="bg-gray-200 text-gray-700">
-                            <tr>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">ID Obat</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Nama Obat</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Jenis Obat</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Stok Obat</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Harga</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-gray-600">
-                            {apoteks.map((obat) => (
-                                <tr key={obat.id} className="border-b border-gray-200 hover:bg-gray-100">
-                                    <td className="py-3 px-4">{obat.id}</td>
-                                    <td className="py-3 px-4">{obat.nama_obat}</td>
-                                    <td className="py-3 px-4">{obat.jenis_obat}</td>
-                                    <td className="py-3 px-4">{obat.stok_obat}</td>
-                                    <td className="py-3 px-4">{obat.harga}</td>
-                                    <td className="py-3 px-4">
-                                        <Link href={`database/edit/${obat.id}`}>Edit
-                                        </Link> | <div className="cursor-pointer" >
-                                            Delete
-                                            </div>
-                                            </td>
 
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+            <div className="container mx-auto px-4 py-6">
+                <div className="text-end mt-2">
+                    <input
+                        type="text"
+                        className="py-1 px-2 border rounded-sm"
+                        placeholder="Search..."
+                        onChange={handleFilter}
+                    />
+                </div>
+                <br />
+
+                <div className="overflow-x-auto">
+
+                    <DataTable
+                        columns={columns}
+                        data={records}
+                        pagination
+                        highlightOnHover
+                        striped
+                        responsive
+                        fixedHeader
+                    />
+
                 </div>
             </div>
         </AuthenticatedLayout>

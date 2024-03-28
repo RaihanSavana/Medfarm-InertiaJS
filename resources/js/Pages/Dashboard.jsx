@@ -4,6 +4,7 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
+import toast from "react-hot-toast";
 
 export default function Dashboard({ auth }) {
 
@@ -23,6 +24,13 @@ export default function Dashboard({ auth }) {
 
         };
     };
+
+    {
+        flash.message &&
+        toast.success(flash.message, {
+            duration: 4000
+        });
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -34,11 +42,6 @@ export default function Dashboard({ auth }) {
         >
             <Head title="Dashboard" />
             <div className="container mx-auto px-40 py-6 justify-between items-center">
-                {flash.message && (
-                <div className="py-2 px-4 rounded-md bg-green-300 text-center">
-                    {flash.message}
-                </div>
-                )}
                 <br />
                 <form onSubmit={storeObat}>
                     <div>

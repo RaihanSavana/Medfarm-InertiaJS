@@ -11,14 +11,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class ApotekController extends Controller
 {
-    public function database()
-    {
-        return Inertia::render(
-            'Database',
-            ['apoteks' => Apoteks::get()]
-        );
-    }
-
     public function update(Request $request, Apoteks $apoteks){
         $data = $request->validate([
             'nama_obat' => 'required',
@@ -28,19 +20,13 @@ class ApotekController extends Controller
         ]);
         $apoteks -> update($data);
 
-        return redirect(route('apotek.database'))->with('message', 'Obat berhasil di update');
+        return redirect(route('database'))->with('message', 'Obat berhasil di update');
     }
 
     public function edit(Apoteks $apoteks){
         return Inertia::render(
-            'Edit',['apoteks' => $apoteks
+            'EditObat',['apoteks' => $apoteks
             ]);
-    }
-
-    public function index()
-    {
-        $apoteks = Apoteks::all();
-        return response()->json($apoteks);
     }
 
     public function store(Request $request)

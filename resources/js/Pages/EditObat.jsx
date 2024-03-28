@@ -1,12 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link, usePage, router } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 
 export default function Edit({ auth, apoteks }) {
-    const {flash} = usePage().props;
 
     const { data, setData, post, processing, errors, reset, onSuccess} = useForm({
         nama_obat: apoteks.nama_obat,
@@ -37,11 +36,6 @@ export default function Edit({ auth, apoteks }) {
         >
             <Head title="Edit" />
             <div className="container mx-auto px-40 py-6 justify-between items-center">
-                {flash.message && (
-                <div className="py-2 px-4 rounded-md bg-green-300 text-center">
-                    {flash.message}
-                </div>
-                )}
                 <br />
                 <form onSubmit={handleUpdate}>
                     <div>
