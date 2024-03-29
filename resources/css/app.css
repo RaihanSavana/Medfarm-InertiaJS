@@ -1,3 +1,79 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {
+  background-color: #CCECEE;
+  color: #fff;
+}
+
+.gradient-text {
+  -webkit-background-clip: text;
+  @apply bg-gradient-to-t from-blue-500 to-cyan-500 text-transparent;
+  overflow: hidden;
+  border-right: 2px solid #fff;
+  animation: typing-text steps(40) 3s infinite, blink linear 0.1s infinite; 
+  text-wrap: nowrap;
+  display: inline-block;
+  width: max-content;
+  width: 0;
+}
+
+.nav {
+  position: relative;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #10B981;
+  transition: width 0.3s ease-in-out; 
+}
+
+.underline1 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #fff;
+  transition: width 0.3s ease-in-out; 
+}
+
+.nav:hover .underline {
+  width: 100%;
+}
+
+.nav:hover .underline1 {
+  width: 100%;
+}
+
+.button1 {
+  color: #14967F;
+}
+
+.button1:hover {
+  color: #E2FCD6;
+  background-color: #14967F;
+  border-color: #14967F;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+@keyframes typing-text {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 340px;
+  }
+}
+
+@keyframes typing-text {
+  to {
+    border-color: transparent;
+  }
+}

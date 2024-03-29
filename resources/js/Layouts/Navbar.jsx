@@ -50,7 +50,9 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    Beranda
+                                    <Link href={route("beranda")}>
+                                            Beranda
+                                        </Link>
                                 </span>
                             </li>
                             <li>
@@ -59,7 +61,9 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    Produk
+                                    <Link href={route("produk")}>
+                                            Produk
+                                        </Link>
                                 </span>
                             </li>
                             <li>
@@ -68,7 +72,9 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    Layanan
+                                    <Link href={route("layanan")}>
+                                            Layanan
+                                        </Link>
                                 </span>
                             </li>
                             <li>
@@ -77,16 +83,9 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    Cari Obat
-                                </span>
-                            </li>
-                            <li>
-                                <span
-                                    className="nav cursor-pointer text-black hover:text-green-500 relative font-bold"
-                                    onClick={closeNavbar}
-                                >
-                                    <span className="underline"></span>
-                                    Lokasi
+                                    <Link href={route("penyakit")}>
+                                            Penyakit
+                                        </Link>
                                 </span>
                             </li>
                             <li>
@@ -102,7 +101,7 @@ export default function Navbar({  }) {
                                     ) : (
                                         <>
                                             <Link href={route("login")}>
-                                                Log in
+                                                Admin
                                             </Link>
                                         </>
                                     )}
@@ -167,42 +166,45 @@ export default function Navbar({  }) {
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <span className="hover:underline">Beranda</span>
+                            <Link className="hover:underline" href={route("beranda")}>Beranda</Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <span className="hover:underline">Produk</span>
+                            <Link className="hover:underline" href={route("produk")}>Produk</Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <span className="hover:underline">Layanan</span>
+                            <Link className="hover:underline" href={route("layanan")}>Layanan</Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <span className="hover:underline">Cari Obat</span>
+                            <Link className="hover:underline" href={route("penyakit")}>Penyakit</Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <span className="hover:underline">Lokasi</span>
-                        </motion.li>
-                        <motion.li
-                            whileHover={{ scale: 1 }}
-                            className="cursor-pointer text-black hover:text-green-500 relative font-bold"
-                            onClick={closeNavbar}
-                        >
-                            <span className="hover:underline">Admin</span>
+                            <Link className="hover:underline">{auth.user ?(
+                                        <Link href={route("dashboard")}>
+                                            Dashboard
+                                        </Link>
+                                    ) : (
+                                        <>
+                                            <Link href={route("login")}>
+                                                Admin
+                                            </Link>
+                                        </>
+                                    )}</Link>
                         </motion.li>
                     </ul>
                 </motion.div>
