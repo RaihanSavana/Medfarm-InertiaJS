@@ -125,7 +125,7 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
                             onChange={
                                 (e) => setData("pemasok_id", e.target.value) // Memperbarui data.pemasok_id saat opsi dipilih
                             }
-                            className="mt-1 block w-full"
+                            className="mt-1 block w-full text-black"
                             required
                         >
                             <option value="">Pilih Pemasok</option>
@@ -155,7 +155,7 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
                             onChange={
                                 (e) => setData("apotek_id", e.target.value) // Memperbarui data.apotek_id saat opsi dipilih
                             }
-                            className="mt-1 block w-full"
+                            className="mt-1 block w-full text-black"
                             required
                         >
                             <option value="">Pilih Jenis Obat</option>

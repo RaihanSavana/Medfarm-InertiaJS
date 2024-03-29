@@ -79,7 +79,7 @@ export default function Dashboard({ auth, jenis_obats }) {
                             onChange={
                                 (e) => setData("jenis_obat_id", e.target.value) // Memperbarui data.jenis_obat_id saat opsi dipilih
                             }
-                            className="mt-1 block w-full"
+                            className="mt-1 block w-full text-black"
                             required
                         >
                             <option value="">Pilih Jenis Obat</option>
