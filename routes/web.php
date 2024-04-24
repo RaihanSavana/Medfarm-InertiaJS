@@ -5,6 +5,7 @@ use App\Http\Controllers\JenisObatController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PemasokController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemukanObatController;
 use App\Http\Controllers\TmasukController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,8 @@ use App\Models\Apoteks;
 use App\Models\JenisObat;
 use App\Models\Pelanggan;
 use App\Models\Pemasok;
+use App\Models\TemukanObat;
+use App\Models\Tkeluar;
 use App\Models\Tmasuk;
 
 Route::get('/', function () {
@@ -24,13 +27,21 @@ Route::get('/produk', function () {
 Route::get('/layanan', function () {
     return Inertia::render('Layanan',);
 })->name('layanan');
+
 Route::get('/Penyakit', function () {
-    return Inertia::render('Penyakit',);
+    return Inertia::render('Penyakit', ['penyakits' => TemukanObat::get()]);
 })->name('penyakit');
+
+Route::get('/Penyakit/{jenis}', [TemukanObatController::class, 'index'])->name('penyakit.index');
+Route::get('/Penyakit/item/{temukan_obats}', [TemukanObatController::class, 'indexx'])->name('penyakit.indexx');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', ['jenis_obats' => JenisObat::get()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/tampilan-obat', function () {
+    return Inertia::render('ObatIndex');
+})->middleware(['auth', 'verified'])->name('obatindex');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -63,12 +74,19 @@ Route::middleware('auth')->group(function () {
     })->name('tmasuk');
     Route::post('/transaksi-masuk', [TmasukController::class, 'store'])->name('tmasuks.store');
 
+    Route::get('/transaksi-keluar', function () {
+        return Inertia::render('TransaksiKeluar', ['apoteks' => Apoteks::get(), 'pelanggans' => Pelanggan::get(), 'tkeluars' => Tkeluar::get()]);
+    })->name('tkeluar');
+    Route::post('/transaksi-keluar', [TmasukController::class, 'store'])->name('tkeluars.store');
+
     Route::get('/database', function () {
         return Inertia::render('Database', ['apoteks' => Apoteks::get(), 'jenis_obats' => JenisObat::get()]);
     })->name('database');
     Route::post('/dashboard', [ApotekController::class, 'store'])->name('apotek.store');
     Route::get('/database/edit/{apoteks}', [ApotekController::class, 'edit'])->name('apotek.edit');
     Route::patch('/database/edit/{apoteks}', [ApotekController::class, 'update'])->name('apotek.update');
+
+    Route::post('/tampilan-obat', [TemukanObatController::class, 'store'])->name('temukanobat.store');
 });
 
 require __DIR__ . '/auth.php';

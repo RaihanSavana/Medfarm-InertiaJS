@@ -6,7 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 
 export default function Edit({ auth, pemasoks }) {
-
+    console.log(pemasoks)
     const { data, setData, post, processing, errors, reset, onSuccess} = useForm({
         nama_pemasok: pemasoks.nama_pemasok,
     });

@@ -124,7 +124,7 @@ export default function Dashboard({ auth }) {
                 <div>
                     <h1 className="text-black text-3xl font-bold justify-center text-center relative">
                         Produk Obat
-                    </h1>
+                    </h1>   
                 </div>
                 <div className="container m-auto px-4 sm:px-6 lg:px-8 pt-8 sm:py-32 sm:gap-4 gap-8 relative mt-10">
                     <div className="relative sm:col-span-6 bottom-32">

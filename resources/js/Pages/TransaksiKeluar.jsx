@@ -7,28 +7,28 @@ import TextInput from "@/Components/TextInput";
 import toast from "react-hot-toast";
 import DataTable from "react-data-table-component";
 
-export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
-    console.log(tmasuks);
-    console.log(pemasoks);
+export default function Dashboard({ auth, tkeluars, apoteks, pelanggans }) {
+    console.log(tkeluars);
+    console.log(pelanggans);
     console.log(apoteks);
-    const pemasuk = pemasoks.map((pemasuk) => ({
-        id: pemasuk.id,
-        nama: pemasuk.nama_pemasok,
+    const pelanggan = pelanggans.map((pelanggan) => ({
+        id: pelanggan.id,
+        nama: pelanggan.nama,
     }));
     const obat = apoteks.map((obat) => ({
         id: obat.id,
         nama: obat.nama_obat,
     }));
 
-    const datas = tmasuks.map((pmm) => ({
+    const datas = tkeluars.map((pmm) => ({
         id: pmm.id,
-        pemasok_id:
-            pemasuk.find((jenis) => jenis.id === pmm.pemasok_id)?.nama ||
+        pelanggan_id:
+            pelanggan.find((jenis) => jenis.id === pmm.pelanggan_id)?.nama ||
             "Tidak Diketahui",
         apotek_id:
             obat.find((jenis) => jenis.id === pmm.apotek_id)?.nama ||
             "Tidak Diketahui",
-        jumlah_masuk: pmm.jumlah_masuk,
+        jumlah_keluar: pmm.jumlah_keluar,
         harga: pmm.harga,
         harga_total: pmm.harga_total,
     }));
@@ -40,8 +40,8 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
             sortable: true,
         },
         {
-            name: "Nama Pemasok",
-            selector: (row) => row.pemasok_id,
+            name: "Nama Pelanggan",
+            selector: (row) => row.pelanggan_id,
             sortable: true,
         },
         {
@@ -50,8 +50,8 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
             sortable: true,
         },
         {
-            name: "Jumlah Masuk",
-            selector: (row) => row.jumlah_masuk,
+            name: "Jumlah Keluar",
+            selector: (row) => row.jumlah_keluar,
             sortable: true,
         },
         {
@@ -70,16 +70,16 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
 
     const { data, setData, post, processing, errors, reset, onSuccess } =
         useForm({
-            pemasok_id: "",
+            pelanggan_id: "",
             apotek_id: "",
-            jumlah_masuk: "",
+            jumlah_keluar: "",
             harga: "",
             harga_total: "",
         });
 
     const storePemasok = (e) => {
         e.preventDefault();
-        post(route("tmasuk")),
+        post(route("tkeluar")),
             data,
             {
                 onSuccess: reset(),
@@ -97,47 +97,47 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Transaksi Masuk
+                    Transaksi Keluar
                 </h2>
             }
         >
-            <Head title="Transaksi Masuk" />
+            <Head title="Transaksi Keluar" />
             <div className="container mx-auto px-40 py-6 justify-between items-center">
                 <br />
                 <form onSubmit={storePemasok}>
                     <div>
                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                            Catat Data Masuk
+                            Catat Data Keluar
                         </h2>
                         <br />
                         <InputLabel
-                            htmlFor="nama_pemasok"
-                            value="Nama Pemasok"
+                            htmlFor="nama_pelanggan"
+                            value="Nama Pelanggan"
                         />
 
                         <select
-                            id="nama_pemasok"
-                            name="nama_pemasok"
-                            value={data.pemasok_id}
+                            id="nama"
+                            name="nama"
+                            value={data.pelanggan_id}
                             onChange={
-                                (e) => setData("pemasok_id", e.target.value) // Memperbarui data.pemasok_id saat opsi dipilih
+                                (e) => setData("pelanggan_id", e.target.value) // Memperbarui data.pemasok_id saat opsi dipilih
                             }
                             className="mt-1 block w-full text-black"
                             required
                         >
-                            <option value="">Pilih Pemasok</option>
-                            {pemasoks.map((pemasok) => (
+                            <option value="">Pilih Pelanggan</option>
+                            {pelanggans.map((pemasok) => (
                                 <option
                                     key={pemasok.id}
                                     value={pemasok.id} // Menggunakan id sebagai value untuk opsi
                                 >
-                                    {pemasok.nama_pemasok}
+                                    {pemasok.nama}
                                 </option>
                             ))}
                         </select>
 
                         <InputError
-                            message={errors.pemasok_id}
+                            message={errors.pelanggan_id}
                             className="mt-2"
                         />
                     </div>
@@ -173,24 +173,24 @@ export default function Dashboard({ auth, tmasuks, apoteks, pemasoks }) {
                     </div>
                     <div className="mt-4">
                         <InputLabel
-                            htmlFor="jumlah_masuk"
-                            value="Jumlah Masuk"
+                            htmlFor="jumlah_keluar"
+                            value="Jumlah Keluar"
                         />
 
                         <TextInput
-                            id="jumlah_masuk"
-                            name="jumlah_masuk"
+                            id="jumlah_keluar"
+                            name="jumlah_keluar"
                             type="number"
-                            value={data.jumlah_masuk}
+                            value={data.jumlah_keluar}
                             className="mt-1 block w-full"
                             onChange={(e) =>
-                                setData("jumlah_masuk", e.target.value)
+                                setData("jumlah_keluar", e.target.value)
                             }
                             required
                         />
 
                         <InputError
-                            message={errors.jumlah_masuk}
+                            message={errors.jumlah_keluar}
                             className="mt-2"
                         />
                     </div>

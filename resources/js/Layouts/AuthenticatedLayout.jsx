@@ -62,6 +62,18 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Transaksi Masuk
                                 </NavLink>
+                                <NavLink
+                                    href={route("tkeluar")}
+                                    active={route().current("tkeluar")}
+                                >
+                                    Transaksi Keluar
+                                </NavLink>
+                                <NavLink
+                                    href={route("obatindex")}
+                                    active={route().current("obatindex")}
+                                >
+                                    Tampilan Obat
+                                </NavLink>
                             </div>
                         </div>
 

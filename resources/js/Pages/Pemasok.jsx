@@ -7,6 +7,7 @@ import TextInput from "@/Components/TextInput";
 import toast from "react-hot-toast";
 import DataTable from "react-data-table-component";
 
+
 export default function Dashboard({ auth, pemasoks }) {
     console.log(pemasoks);
     const datas = pemasoks.map((pmm) => ({
@@ -78,7 +79,7 @@ export default function Dashboard({ auth, pemasoks }) {
                         <br />
                         <InputLabel
                             htmlFor="nama_pemasok"
-                            value="Nama_pemasok"
+                            value="Nama pemasok"
                         />
                         <TextInput
                             id="nama_pemasok"

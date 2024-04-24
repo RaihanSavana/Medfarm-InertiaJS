@@ -2,36 +2,26 @@ import Navbar from "@/Layouts/Navbar";
 import { Head, Link } from "@inertiajs/react";
 import Footer from "@/Components/Footer";
 
-export default function Penyakit1( {auth} ) {
+export default function Penyakit1( {auth, penyakits} ) {
+    console.log(penyakits)
     const namaPenyakit = [
-        "Demam",
-        "Flu",
-        "Sakit Kepala",
+        "Batuk & Flu",
         "Diare",
-        "Batuk",
-        "Pilek",
-        "Sariawan",
-        "Luka Ringan",
-        "Sakit Gigi",
-        "Kembung Perut",
-        "Asam Lambung",
-        "Sembelit",
+        "Demam"
     ];
 
     const namaFileGambar = [
         "V1.png",
         "V2.png",
         "V3.png",
-        "V4.png",
-        "V1.png",
-        "V2.png",
-        "V3.png",
-        "V4.png",
-        "V1.png",
-        "V2.png",
-        "V3.png",
-        "V4.png",
     ];
+
+    const namaLink = [
+        "Batuk dan flu",
+        "Diare",
+        "Demam"
+    ]
+
 
     return (
         <>
@@ -43,20 +33,23 @@ export default function Penyakit1( {auth} ) {
                 </h1>
                 <div className="w-full mt-10">
                     {/* Menampilkan 3 baris dengan 4 card di setiap baris */}
-                    {[...Array(3)].map((_, barisIndex) => (
+                    {[...Array(1)].map((_, barisIndex) => (
                         <div
                             key={barisIndex}
                             className="flex justify-center gap-6"
                         >
                             {/* Menampilkan 4 card di setiap baris */}
-                            {[...Array(4)].map((_, cardIndex) => (
+                            {[...Array(3)].map((_, cardIndex) => (
                                 <div
                                     key={cardIndex}
                                     className="text-center mb-6"
                                     style={{ width: "20%" }}
                                 >
                                     <div className="flex flex-col items-center">
-                                        <Link to="/temukan-obat">
+                                        <Link href={`/Penyakit/${namaLink[
+                                                            cardIndex +
+                                                                barisIndex * 4
+                                                        ]}`}>
                                             <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center mb-2">
                                                 <img
                                                     src={`images/Penyakit/${
@@ -79,7 +72,7 @@ export default function Penyakit1( {auth} ) {
                                         <p className="text-xl text-black font-medium">
                                             {
                                                 namaPenyakit[
-                                                    cardIndex + barisIndex * 4
+                                                    cardIndex + barisIndex * 3
                                                 ]
                                             }
                                         </p>

@@ -78,7 +78,7 @@ export default function Dashboard({ auth, pelanggans }) {
                         <br />
                         <InputLabel
                             htmlFor="nama"
-                            value="Nama_pemasok"
+                            value="Nama Pelanggan"
                         />
                         <TextInput
                             id="nama"

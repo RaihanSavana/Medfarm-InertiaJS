@@ -11,7 +11,7 @@ class PelangganController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nama' ,
+            'nama' => 'required',
         ]);
 
         Pelanggan::create($data);
