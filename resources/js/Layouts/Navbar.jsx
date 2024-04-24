@@ -2,7 +2,7 @@ import { Link, Head } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-export default function Navbar({  }) {
+export default function Navbar({}) {
     const [auth] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -36,12 +36,16 @@ export default function Navbar({  }) {
                 }`}
             >
                 <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-                    <div className="flex items-center">
-                        <h1 className="font-bold text-xl text-black">Med</h1>
-                        <h1 className="font-bold text-xl text-green-500">
-                            Farm
-                        </h1>
-                    </div>
+                    <Link href={route("beranda")}>
+                        <div className="flex items-center">
+                            <h1 className="font-bold text-xl text-black">
+                                Med
+                            </h1>
+                            <h1 className="font-bold text-xl text-green-500">
+                                Farm
+                            </h1>
+                        </div>
+                    </Link>
                     <div className="flex items-center">
                         <ul className="flex gap-8">
                             <li>
@@ -50,9 +54,7 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    <Link href={route("beranda")}>
-                                            Beranda
-                                        </Link>
+                                    <Link href={route("beranda")}>Beranda</Link>
                                 </span>
                             </li>
                             <li>
@@ -61,9 +63,7 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    <Link href={route("produk")}>
-                                            Produk
-                                        </Link>
+                                    <Link href={route("produk")}>Produk</Link>
                                 </span>
                             </li>
                             <li>
@@ -72,9 +72,7 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    <Link href={route("layanan")}>
-                                            Layanan
-                                        </Link>
+                                    <Link href={route("layanan")}>Layanan</Link>
                                 </span>
                             </li>
                             <li>
@@ -84,8 +82,8 @@ export default function Navbar({  }) {
                                 >
                                     <span className="underline"></span>
                                     <Link href={route("penyakit")}>
-                                            Penyakit
-                                        </Link>
+                                        Penyakit
+                                    </Link>
                                 </span>
                             </li>
                             <li>
@@ -94,7 +92,7 @@ export default function Navbar({  }) {
                                     onClick={closeNavbar}
                                 >
                                     <span className="underline"></span>
-                                    {auth.user ?(
+                                    {auth.user ? (
                                         <Link href={route("dashboard")}>
                                             Dashboard
                                         </Link>
@@ -106,7 +104,6 @@ export default function Navbar({  }) {
                                         </>
                                     )}
                                 </span>
-
                             </li>
                         </ul>
                     </div>
@@ -166,45 +163,65 @@ export default function Navbar({  }) {
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <Link className="hover:underline" href={route("beranda")}>Beranda</Link>
+                            <Link
+                                className="hover:underline"
+                                href={route("beranda")}
+                            >
+                                Beranda
+                            </Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <Link className="hover:underline" href={route("produk")}>Produk</Link>
+                            <Link
+                                className="hover:underline"
+                                href={route("produk")}
+                            >
+                                Produk
+                            </Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <Link className="hover:underline" href={route("layanan")}>Layanan</Link>
+                            <Link
+                                className="hover:underline"
+                                href={route("layanan")}
+                            >
+                                Layanan
+                            </Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <Link className="hover:underline" href={route("penyakit")}>Penyakit</Link>
+                            <Link
+                                className="hover:underline"
+                                href={route("penyakit")}
+                            >
+                                Penyakit
+                            </Link>
                         </motion.li>
                         <motion.li
                             whileHover={{ scale: 1 }}
                             className="cursor-pointer text-black hover:text-green-500 relative font-bold"
                             onClick={closeNavbar}
                         >
-                            <Link className="hover:underline">{auth.user ?(
-                                        <Link href={route("dashboard")}>
-                                            Dashboard
-                                        </Link>
-                                    ) : (
-                                        <>
-                                            <Link href={route("login")}>
-                                                Admin
-                                            </Link>
-                                        </>
-                                    )}</Link>
+                            <Link className="hover:underline">
+                                {auth.user ? (
+                                    <Link href={route("dashboard")}>
+                                        Dashboard
+                                    </Link>
+                                ) : (
+                                    <>
+                                        <Link href={route("login")}>Admin</Link>
+                                    </>
+                                )}
+                            </Link>
                         </motion.li>
                     </ul>
                 </motion.div>

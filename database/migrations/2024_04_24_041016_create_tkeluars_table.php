@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tkeluars', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('apotek_id');
-            $table->unsignedBigInteger('pelanggan_id')->nullable();
+            $table->unsignedBigInteger('pelanggan_id');
             $table->integer('jumlah_keluar');
             $table->integer('harga');
             $table->integer('harga_total');
